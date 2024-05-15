@@ -1,67 +1,72 @@
 import { BsTwitterX } from "react-icons/bs";
 import { useState } from "react";
-// import axios from "axios";
-// import { USER_API_END_POINT } from "../utils/constant";
-// import toast from "react-hot-toast";
-// import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { USER_API_END_POINT } from "../utils/constant";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 // import { useDispatch } from "react-redux";
 // import { GoDiff } from "react-icons/go";
 // import { getUser } from "../redux/userSlice";
 
 const Login = () => {
   const [login, setLogin] = useState(true);
+  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  // const submitHandler = async (e) => {
-  //   e.preventDefault();
-  //   if (login) {
-  //     try {
-  //       const res = await axios.post(
-  //         `${USER_API_END_POINT}/login`,
-  //         {
-  //           email,
-  //           password,
-  //         },
-  //         {
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //           },
-  //           withCredentials: true,
-  //         }
-  //       );
-  //       dispatch(getUser(res?.data?.user));
-  //       if (res.data.success) {
-  //         navigate("/");
-  //         toast.success(res.data.message);
-  //       }
-  //     } catch (error) {
-  //       toast.error("error");
-  //     }
-  //   } else {
-  //     try {
-  //       const res = await axios.post(
-  //         `${USER_API_END_POINT}/register`,
-  //         {
-  //           name,
-  //           username,
-  //           email,
-  //           password,
-  //         },
-  //         {
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //           },
-  //           withCredentials: true,
-  //         }
-  //       );
-  //       if (res.data.success) {
-  //         setLogin(true);
-  //         toast.success(res.data.message);
-  //       }
-  //     } catch (error) {
-  //       toast.error("error");
-  //     }
-  //   }
-  // };
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    if (login) {
+      try {
+        const res = await axios.post(
+          `${USER_API_END_POINT}/login`,
+          {
+            email,
+            password,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            withCredentials: true,
+          }
+        );
+        //  dispatch(getUser(res?.data?.user));
+        if (res.data.success) {
+          navigate("/");
+          toast.success(res.data.message);
+        }
+      } catch (error) {
+        toast.error("error");
+      }
+    } else {
+      try {
+        const res = await axios.post(
+          `${USER_API_END_POINT}/register`,
+          {
+            name,
+            username,
+            email,
+            password,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            withCredentials: true,
+          }
+        );
+        if (res.data.success) {
+          setLogin(true);
+          toast.success(res.data.message);
+        }
+      } catch (error) {
+        toast.error("error");
+      }
+    }
+  };
 
   const loginSignupHandler = (e) => {
     e.preventDefault();
@@ -90,7 +95,7 @@ const Login = () => {
       </div>
 
       <form
-        // onSubmit={submitHandler}
+        onSubmit={submitHandler}
         className={
           login
             ? "flex flex-col w-[300px] top-[380px] left-[980px] absolute"
@@ -102,15 +107,15 @@ const Login = () => {
             <input
               type="text"
               placeholder="Name"
-              //  value={name}
-              // onChange={(e) => setName(e.target.value)}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className="mt-12 rounded-full p-3 px-12 outline-none hover:bg-slate-100 border-[2px] border-black font-sans font-bold "
             />
             <input
               type="text"
               placeholder="Username"
-              //  value={username}
-              // onChange={(e) => setUsername(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               className="mt-2 rounded-full p-3 px-12 outline-none hover:bg-slate-100 border-[2px] border-black font-sans font-bold "
             />
           </>
@@ -119,8 +124,8 @@ const Login = () => {
         <input
           type="email"
           placeholder="Email"
-          // value={email}
-          //onChange={(e) => setEmail(e.target.value)}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           className={
             login
               ? "mt-10 rounded-full p-3 px-12 outline-none hover:bg-slate-100 border-[2px] border-black font-sans font-bold"
@@ -130,8 +135,8 @@ const Login = () => {
         <input
           type="password"
           placeholder="Password"
-          // value={password}
-          //  onChange={(e) => setPassword(e.target.value)}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           className="mt-2 rounded-full p-3 px-12 outline-none hover:bg-slate-100 border-[2px] border-black font-sans font-bold "
         />
         <button className="bg-blue-500 text-white rounded-full p-3 mt-4 font-sans font-bold hover:bg-blue-600">
