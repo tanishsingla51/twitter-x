@@ -2,11 +2,16 @@ import { IoArrowBack } from "react-icons/io5";
 import { SiTicktick } from "react-icons/si";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaRegCalendarAlt } from "react-icons/fa";
-import { HiOutlineDotsCircleHorizontal } from "react-icons/hi";
 
-import { Link } from "react-router-dom";
+import { useGetProfile } from "../hooks/useGetProfile";
+import { useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
 
 const Profile = () => {
+  const { user, profile } = useSelector((state) => state.user);
+  const { id } = useParams();
+  useGetProfile(id);
+
   return (
     <div className="border border-solid border-gray-200 w-[100%]">
       <div className="flex border border-solid border-gray-100 w-[100%]">
@@ -18,7 +23,7 @@ const Profile = () => {
         </Link>
         <div>
           <h1 className="font-bold text-bold pt-1 px-2  cursor-pointer hover:underline text-xl">
-            Elon Musk
+            {profile?.name}
           </h1>
           <p className="text-gray-500 px-2 text-sm"> 0 posts </p>
         </div>
@@ -47,7 +52,7 @@ const Profile = () => {
 
       <div className="flex mt-20 ml-5">
         <h1 className="font-bold text-bold pt-1 px-2  cursor-pointer hover:underline text-xl">
-          Elon Musk
+          {profile?.name}
         </h1>
         <SiTicktick
           size="15px"
@@ -58,7 +63,7 @@ const Profile = () => {
           className="text-black cursor-pointer mr-2 mt-[10px]"
         />
       </div>
-      <p className="text-gray-500 px-2 text-sm ml-5">@elonmusk </p>
+      <p className="text-gray-500 px-2 text-sm ml-5">@{profile?.username}</p>
       <div className="flex">
         <FaRegCalendarAlt
           size="15px"
@@ -86,7 +91,6 @@ const Profile = () => {
       </div>
 
       <div className="relative flex">
-        <HiOutlineDotsCircleHorizontal className="bottom-[152px] right-0 left-[545px] absolute size-10 cursor-pointer hover:text-slate-500" />
         <button className="bg-black text-white px-4 py-2 rounded-full font-bold absolute bottom-32 right-0 m-6 ml-4 text-bold hover:bg-gray-800">
           Edit Profile
         </button>

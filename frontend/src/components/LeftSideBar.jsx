@@ -12,8 +12,10 @@ import { BsTwitterX } from "react-icons/bs";
 import { CiCircleMore } from "react-icons/ci";
 import { MdLogout } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const LeftSidebar = () => {
+  const { user } = useSelector((state) => state.user);
   return (
     <div className="w-[25%] position:fixed">
       <button className="my-2 bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200 transition-colors duration-300 ease-in-out">
@@ -67,7 +69,7 @@ const LeftSidebar = () => {
         </button>
 
         <Link
-          to="/profile"
+          to={`/profile/${user?._id}`}
           className="flex items-center my-4  bg-white text-black py-2 px-4 rounded-full hover:bg-gray-200 transition-colors duration-300 ease-in-out"
         >
           <CgProfile size="35px" className="mx-0.5" />
