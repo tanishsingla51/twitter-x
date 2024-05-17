@@ -6,8 +6,33 @@ import { FaRegHeart } from "react-icons/fa";
 import { BiMessageRounded } from "react-icons/bi";
 import { MdOutlineDelete } from "react-icons/md";
 import { FaRegBookmark } from "react-icons/fa";
+import axios from "axios";
+import { TWEET_API_END_POINT } from "../utils/constant";
+import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
+import { getRefresh } from "../redux/tweetSlice";
+import { useDispatch } from "react-redux";
 
 export const Tweet = ({ tweet }) => {
+  const { user } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const likeOrDislikeHandler = async (id) => {
+    try {
+      const response = await axios.put(
+        `${TWEET_API_END_POINT}/like/${id}`,
+        { id: user?._id },
+        {
+          withCredentials: true,
+        }
+      );
+      dispatch(getRefresh());
+
+      toast.success(response.data.msg);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="border border-solid border-gray-100">
       <div>
@@ -51,7 +76,10 @@ export const Tweet = ({ tweet }) => {
               </div>
             </button>
             <button className="flex">
-              <FaRegHeart className="text-gray-500 mt-1 mr-1 hover:bg-pink-300 rounded-full " />
+              <FaRegHeart
+                onClick={() => likeOrDislikeHandler(tweet?._id)}
+                className="text-gray-500 mt-1 mr-1 hover:bg-pink-300 rounded-full "
+              />
               <div className="text-gray-500 font-bold">
                 {tweet?.like?.length}
               </div>
