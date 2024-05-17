@@ -38,6 +38,10 @@ const CreatePost = () => {
     setDescription("");
   };
 
+  const followingTweetHandler = () => {
+    dispatch(getRefresh());
+  };
+
   return (
     <div>
       <button className="flex border border-solid border-gray-100 w-[100%] ">
@@ -45,7 +49,10 @@ const CreatePost = () => {
           <h2 className="font-bold">For you</h2>
         </button>
 
-        <button className="p-2 px-24   bg-white text-black py-4  rounded hover:bg-gray-200 transition-colors duration-300 ease-in-out">
+        <button
+          onClick={followingTweetHandler}
+          className="p-2 px-24   bg-white text-black py-4  rounded hover:bg-gray-200 transition-colors duration-300 ease-in-out"
+        >
           <h2 className="font-bold">Following</h2>
         </button>
 

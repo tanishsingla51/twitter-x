@@ -33,6 +33,22 @@ export const Tweet = ({ tweet }) => {
     }
   };
 
+  const deleteTweetHandler = async (id) => {
+    try {
+      const response = await axios.delete(
+        `${TWEET_API_END_POINT}/delete/${id}`,
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(response);
+      dispatch(getRefresh());
+      toast.success(response.data.message);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="border border-solid border-gray-100">
       <div>
@@ -84,12 +100,15 @@ export const Tweet = ({ tweet }) => {
                 {tweet?.like?.length}
               </div>
             </button>
-            <button className="flex">
-              <MdOutlineDelete className="text-gray-500 mr-2 size-5 mt-0.5 hover:bg-green-400 rounded-full" />
-              <div className="text-gray-500 font-bold hover:text-green-500">
-                Delete
-              </div>
-            </button>
+            {user?._id === tweet?.userId && (
+              <button
+                onClick={() => deleteTweetHandler(tweet?._id)}
+                className="flex"
+              >
+                <MdOutlineDelete className="text-gray-500 size-5 mt-0.5 hover:bg-red-300 rounded-full " />
+                <div className="text-gray-500 font-bold">Delete</div>
+              </button>
+            )}
             <button className="flex">
               <FaRegBookmark className="text-gray-500 mr-2 size-4 mt-1.5 hover:bg-yellow-300 rounded-full" />
               <div className="text-gray-500 font-bold  hover:text-yellow-400">
