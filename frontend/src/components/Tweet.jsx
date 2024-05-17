@@ -7,7 +7,7 @@ import { BiMessageRounded } from "react-icons/bi";
 import { MdOutlineDelete } from "react-icons/md";
 import { FaRegBookmark } from "react-icons/fa";
 
-export const Tweet = () => {
+export const Tweet = ({ tweet }) => {
   return (
     <div className="border border-solid border-gray-100">
       <div>
@@ -18,7 +18,7 @@ export const Tweet = () => {
             className="rounded-full p-[2px] m-[8px] cursor-pointer"
           />
           <div className="font-bold text-bold pt-4 px-4 pr-2 cursor-pointer hover:underline">
-            Elon Musk
+            {tweet?.userDetails[0].name}
           </div>
           <SiTicktick
             size="15px"
@@ -28,7 +28,9 @@ export const Tweet = () => {
             size="17px"
             className="text-black cursor-pointer mr-2 mt-5"
           />
-          <div className="text-gray-500 pt-4">@elonmusk</div>
+          <div className="text-gray-500 pt-4">
+            @{tweet?.userDetails[0].username}
+          </div>
           <div className="text-gray-500 pt-4 px-2">· 2h</div>
           <BiDotsVerticalRounded
             size="20px"
@@ -37,14 +39,7 @@ export const Tweet = () => {
         </div>
 
         <div>
-          <p className="px-16">
-            We should send rockets not at each other, but rather to the stars
-          </p>
-          <img
-            src="https://pbs.twimg.com/media/GLf7bKAXQAAx-kf?format=jpg&name=medium"
-            alt="elon musk"
-            className="w-[85%] h-150 object-cover mx-16 mt-4 rounded-2xl"
-          />
+          <p className="px-16">{tweet?.description}</p>
         </div>
 
         <div className="pb-4">
@@ -56,9 +51,9 @@ export const Tweet = () => {
               </div>
             </button>
             <button className="flex">
-              <FaRegHeart className="text-gray-500 mt-1 mr-2 hover:bg-pink-500 rounded-full" />
-              <div className="text-gray-500 hover:text-pink-500 font-bold">
-                20
+              <FaRegHeart className="text-gray-500 mt-1 mr-1 hover:bg-pink-300 rounded-full " />
+              <div className="text-gray-500 font-bold">
+                {tweet?.like?.length}
               </div>
             </button>
             <button className="flex">

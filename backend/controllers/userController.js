@@ -69,7 +69,9 @@ const Login = async (req, res) => {
       });
     }
 
-    const token = await jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+    const userId = user._id;
+
+    const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
 

@@ -15,7 +15,7 @@ const isAuthenticated = async (req, res, next) => {
         .json({ message: "User not authorized", success: false });
     }
 
-    const decoded = await jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     console.log(decoded);
     req.user = decoded.userId;
     next();
