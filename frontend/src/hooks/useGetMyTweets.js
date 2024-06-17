@@ -20,6 +20,7 @@ export const useGetMyTweets = (id) => {
         console.log(error);
       }
     };
+
     fetchMyTweets();
   }, [refresh]);
 };

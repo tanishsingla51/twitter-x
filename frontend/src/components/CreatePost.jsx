@@ -8,7 +8,7 @@ import { TWEET_API_END_POINT } from "../utils/constant";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getRefresh } from "../redux/tweetSlice";
+import { getAllTweets, getRefresh } from "../redux/tweetSlice";
 
 const CreatePost = () => {
   const [description, setDescription] = useState("");
@@ -39,7 +39,18 @@ const CreatePost = () => {
   };
 
   const followingTweetHandler = () => {
-    dispatch(getRefresh());
+    const loggedInUserId = user?._id;
+    try {
+      const res = axios.get(
+        `${TWEET_API_END_POINT}/followingtweets/${loggedInUserId}`,
+        {
+          withCredentials: true,
+        }
+      );
+      dispatch(getAllTweets(res.data.tweets));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
