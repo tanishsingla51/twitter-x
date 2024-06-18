@@ -32,6 +32,7 @@ const Login = () => {
               "Content-Type": "application/json",
             },
             withCredentials: true,
+            timeout: 10000,
           }
         );
         dispatch(getUser(res?.data?.user));
