@@ -14,19 +14,20 @@ databaseConnection();
 const app = express();
 
 // Middleware
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-    credentials: true,
-  })
-);
-// apis
+// Configure CORS
+const corsOptions = {
+  origin: "http://localhost:5173", // URL of your front-end application
+  credentials: true, // Allow cookies to be sent
+  optionsSuccessStatus: 200, // For legacy browser support
+};
 
+app.use(cors(corsOptions));
+
+// APIs
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/tweet", tweetRoute);
 
